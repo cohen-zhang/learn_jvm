@@ -16,12 +16,16 @@
 3. 能更好理解 Java 语言特性，写出简洁、高效代码
 
 
-Java 虚拟机知识框架图（注意区分 JDK 和 JRE）
+Java 虚拟机知识框架图
 
 1. Java 程序语言设计
 2. Class 文件格式
 3. Java类库 API
 4. 三方库 API
+
+注意区分 JDK 和 JRE：
+JDK 包含 JRE，JRE 仅包含运行 Java 程序的必须组件（也就是说有 JRE 就可以开发和运行Java程序了）
+
 
 ···shell···
 java -XX:+PrintFlagsFinal -XX:+UnlockDiagnosticVMOptions -version
