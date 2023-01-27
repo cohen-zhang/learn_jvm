@@ -5,8 +5,43 @@
 
 使用 javap 命令反编译 [Foo](./Foo.java) 文件
 
+```java
+/**
+ * 编译(javac Foo.java)并用 javap -c Foo 反编译查看编译后的字节码
+ * @author zz
+ * @date
+ */
+public class Foo {
+    private int tryBlock;
+    private int catchBlock;
+    private int finallyBlock;
+    private int methodExit;
+
+    public void test() {
+        for (int i = 0; i < 100; i++) {
+            try {
+                tryBlock = 0;
+                if (i < 50) {
+                    continue;
+                } else if (i < 80) {
+                    break;
+                } else {
+                    return;
+                }
+            } catch (Exception e) {
+                catchBlock = 1;
+            } finally {
+                finallyBlock = 2;
+            }
+        }
+        methodExit = 3;
+    }
+}
+```
+
 
 ```shell
+# 1。类文件的基本信息
 practice git:(master) ✗ javap -p -v Foo 
 Classfile /Users/zz/workspace/learn_jvm/chapter1. Java 虚拟机基本原理/practice/Foo.class
   Last modified 2023-1-20; size 629 bytes
@@ -16,7 +51,7 @@ public class Foo
   minor version: 0
   major version: 52
   flags: ACC_PUBLIC, ACC_SUPER
-Constant pool:
+Constant pool: # 2。 常量池和各种引用
    #1 = Methodref          #8.#24         // java/lang/Object."<init>":()V
    #2 = Fieldref           #7.#25         // Foo.tryBlock:I
    #3 = Fieldref           #7.#26         // Foo.finallyBlock:I
@@ -50,6 +85,7 @@ Constant pool:
   #31 = Utf8               java/lang/Object
   #32 = Utf8               java/lang/Throwable
 {
+  # 3。字段区域
   private int tryBlock;
     descriptor: I
     flags: ACC_PRIVATE
@@ -77,11 +113,12 @@ Constant pool:
       LineNumberTable:
         line 6: 0
 
+# 4。 方法区域
   public void test();
     descriptor: ()V
     flags: ACC_PUBLIC
-    Code:
-      stack=2, locals=4, args_size=1
+    Code: # 代码区域
+      stack=2, locals=4, args_size=1 # 操作数栈、局部变量数目、参数个数
          0: iconst_0
          1: istore_1
          2: iload_1
@@ -128,14 +165,14 @@ Constant pool:
         76: iconst_3
         77: putfield      #6                  // Field methodExit:I
         80: return
-      Exception table:
+      Exception table: # 异常表
          from    to  target type
              8    19    47   Class java/lang/Exception
             27    33    47   Class java/lang/Exception
              8    19    61   any
             27    33    61   any
             47    53    61   any
-      LineNumberTable:
+      LineNumberTable: # 行数表
         line 13: 0
         line 15: 8
         line 16: 13
@@ -152,7 +189,7 @@ Constant pool:
         line 13: 69
         line 29: 75
         line 30: 80
-      StackMapTable: number_of_entries = 7
+      StackMapTable: number_of_entries = 7 
         frame_type = 252 /* append */
           offset_delta = 2
           locals = [ int ]
