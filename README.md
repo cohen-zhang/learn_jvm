@@ -33,3 +33,4 @@ java -XX:+PrintFlagsFinal -XX:+UnlockDiagnosticVMOptions -version
 
 学了一段时间的 JVM 的体会：横看成岭侧成峰，远近高低各不同。
 技术方面更有自信，学会看指令后，能从更底层了解并发编程、反射、异常……
+学过JVM对比没学过的，简直就是降维打击
