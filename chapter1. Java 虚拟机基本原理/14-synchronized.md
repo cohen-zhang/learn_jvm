@@ -1,13 +1,48 @@
 # JVM 层面理解 synchronized 关键字
 
-> synchronized 在指令层面是加了 一个 monitor-enter + **多个** monitor-exit
+> 总结：synchronized 在指令层面是加了 一个 monitor-enter + **多个** monitor-exit
 
 抽象理解 monitor-enter 和 monitor-exit 作用：
-
 被锁的对象，拥有一个锁计数器(为了同一个线程获取同一把锁) 和 一个指向持有该锁的进程的指针。
 
-- 进入 monitor-enter ：
-- 进入 monitor-exit :
+- 进入 monitor-enter ： if(目标对象的计数器 == 0) {计数器 = 计数器+1;}
+- 进入 monitor-exit : {计数器 = 计数器+1;} if(目标对象的计数器 == 0)  {锁已经被释放掉}
+
+```shell
+
+  public void foo(Object lock) {
+    synchronized (lock) {
+      lock.hashCode();
+    }
+  }
+  // 上面的Java代码将编译为下面的字节码
+  public void foo(java.lang.Object);
+    Code:
+       0: aload_1
+       1: dup
+       2: astore_2
+       3: monitorenter
+       4: aload_1
+       5: invokevirtual java/lang/Object.hashCode:()I
+       8: pop
+       9: aload_2
+      10: monitorexit
+      11: goto          19
+      14: astore_3
+      15: aload_2
+      16: monitorexit
+      17: aload_3
+      18: athrow
+      19: return
+    Exception table:
+       from    to  target type
+           4    11    14   any
+          14    17    14   any
+
+
+```
+
+> 相关引用： 异常处理
 
 ## 锁的分类
 
