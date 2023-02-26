@@ -95,3 +95,13 @@ B object internals:
 ```
 
 虚共享：暂时可不搞懂
+
+
+
+**问题：**
+最近研究String时遇到一个跟Java内存相关的问题：常量池里到底有没有存放对象？
+
+**回答：**
+常量池主要存放两大类常量：字面量（Literal）和符号引用（Symbolic Reference）；
+如果常量池里有一个“hello”的字面量，这个字面量算是一个对象吗？如果不算对象，那么它所指向的对象又存放在哪里呢
+作者回复: String literal指向的对象存放在JVM的String pool里。
