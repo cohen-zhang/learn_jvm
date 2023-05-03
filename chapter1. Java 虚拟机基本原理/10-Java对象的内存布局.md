@@ -104,4 +104,4 @@ B object internals:
 **回答：**
 常量池主要存放两大类常量：字面量（Literal）和符号引用（Symbolic Reference）；
 如果常量池里有一个“hello”的字面量，这个字面量算是一个对象吗？如果不算对象，那么它所指向的对象又存放在哪里呢
-作者回复: String literal指向的对象存放在JVM的String pool里。
+作者回复: String literal指向的对象存放在JVM的String pool里，这个pool是一个特殊的对象数组，里面存放的是String对象的引用，而不是对象本身。String pool是一个固定大小的对象数组，不会自动扩容，当String pool满了之后，再往里面添加String literal，就会导致OOM。
