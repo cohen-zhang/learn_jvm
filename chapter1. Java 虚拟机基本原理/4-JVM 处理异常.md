@@ -195,4 +195,16 @@ Q：检查异常和非检查异常的区别？
 
 ## 参考
 
-- 《阿里巴巴Java开发规范》
+1. 《阿里巴巴Java开发规范》
+  
+【强制】Java 类库中定义的可以通过预检查方式规避的 RuntimeException 异常不应该通过
+catch 的方式来处理，比如：NullPointerException，IndexOutOfBoundsException 等等。
+说明：无法通过预检查的异常除外，比如，在解析字符串形式的数字时，可能存在数字格式错误，不得不
+通过 catch NumberFormatException 来实现。
+
+正例：if (obj != null) {...}
+反例：try { obj.method(); } catch (NullPointerException e) {…}
+
+【强制】异常捕获后不要用来做流程控制，条件控制。
+
+说明：异常设计的初衷是解决程序运行中的各种意外情况，且异常的处理效率比条件判断方式要低很多。
