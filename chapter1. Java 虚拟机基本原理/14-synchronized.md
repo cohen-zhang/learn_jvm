@@ -1,4 +1,6 @@
-# JVM 层面理解 synchronized 关键字
+# 14 | Java虚拟机是怎么实现synchronized的
+
+## JVM 层面理解 synchronized 关键字
 
 > 总结：synchronized 在指令层面是加了 一个 monitor-enter + **多个** monitor-exit
 
@@ -59,13 +61,10 @@
 
 ### 3。 偏向锁
 
-
-##《Java 并发编程实战》课程联动
-
-14 | Lock和Condition（上）：隐藏在并发包中的管程
-
+## 《Java 并发编程实战》课程联动-14 | Lock和Condition（上）：隐藏在并发包中的管程
 
 ## 问题
+
 1. 怎么通过源码看一个锁（比如 ReentrantLock）是不是阻塞型的？
 2. 
 
